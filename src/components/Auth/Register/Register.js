@@ -10,6 +10,7 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(fullName, photoUrl, email, password);
+    form.reset();
   };
   return (
     <div className='flex justify-center'>
