@@ -1,11 +1,15 @@
 import React from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthProvider } from "../../../Contexts/AuthContext/AuthContext";
 
 const Login = () => {
   const { login, loginWithGoogle, loginWithGithub } = useContext(AuthProvider);
+  const [loginError, setLoginError] = useState('')
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
   const handleLogin = (event) => {
     event.preventDefault();
@@ -16,12 +20,13 @@ const Login = () => {
     form.reset();
     login(email, password)
       .then((result) => {
-        console.log(result.user);
+        const user = result.user;
+        console.log(user);
       })
-      .catch((error) => console.error(error));
-
-    navigate("/");
+      .catch((error) => setLoginError(error.message));
   };
+  navigate(from, { replace: true });
+
 
   const googleLogin = () => {
     loginWithGoogle()
@@ -29,7 +34,7 @@ const Login = () => {
         console.log("User From Google", result.user);
       })
       .catch((error) => {
-        console.log(error.message);
+        setLoginError(error.message);
       });
   };
 
@@ -39,7 +44,7 @@ const Login = () => {
         console.log("User From Github", result.user);
       })
       .catch((error) => {
-        console.log(error.message);
+        setLoginError(error.message);
       });
   };
   return (
@@ -94,6 +99,7 @@ const Login = () => {
           >
             <FaGithub className='text-xl mr-2' /> Login With Github
           </button>
+          <p>{loginError}</p>
         </div>
       </div>
     </div>

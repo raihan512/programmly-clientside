@@ -12,9 +12,8 @@ const Header = () => {
 
   return (
     <div
-      className={`md:flex justify-between items-center bg-black px-5 md:px-40 py-2 shadow-md text-white ${
-        darkMode ? darkModeStyle : lightModeStayle
-      }`}
+      className={`md:flex justify-between items-center bg-black px-5 md:px-40 py-2 shadow-md text-white ${darkMode ? darkModeStyle : lightModeStayle
+        } sticky top-0`}
     >
       {/* Website Logo And Name */}
       <div className='flex items-center '>
