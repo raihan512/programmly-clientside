@@ -1,11 +1,12 @@
 import React from "react";
 import { useContext } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthProvider } from "../../../Contexts/AuthContext/AuthContext";
 
 const Login = () => {
-  const { loginWithGoogle, loginWithGithub } = useContext(AuthProvider)
+  const { login, loginWithGoogle, loginWithGithub } = useContext(AuthProvider);
+  const navigate = useNavigate();
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -13,18 +14,34 @@ const Login = () => {
     const password = form.password.value;
     console.log(email, password);
     form.reset();
+    login(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => console.error(error));
+
+    navigate("/");
   };
 
   const googleLogin = () => {
     loginWithGoogle()
-      .then(result => {
-        console.log('User From Google', result.user);
+      .then((result) => {
+        console.log("User From Google", result.user);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.message);
-      })
+      });
+  };
 
-  }
+  const githubLogin = () => {
+    loginWithGithub()
+      .then((result) => {
+        console.log("User From Github", result.user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <div className='flex justify-center'>
       <div className='w-full md:w-4/12 bg-gray-100 p-5 md:p-10 rounded-md mt-5 md:mt-20'>
@@ -65,10 +82,16 @@ const Login = () => {
         </p>
         {/* Login With Provider */}
         <div>
-          <button onClick={googleLogin} className='flex justify-center items-center w-full bg-red-400 rounded-md py-2 mb-2 text-black font-semibold text-xl'>
+          <button
+            onClick={googleLogin}
+            className='flex justify-center items-center w-full bg-red-400 rounded-md py-2 mb-2 text-black font-semibold text-xl'
+          >
             <FaGoogle className='text-xl mr-2' /> Login With Google
           </button>
-          <button className='flex justify-center items-center w-full bg-black rounded-md py-2 mb-2 text-white font-semibold text-xl'>
+          <button
+            onClick={githubLogin}
+            className='flex justify-center items-center w-full bg-black rounded-md py-2 mb-2 text-white font-semibold text-xl'
+          >
             <FaGithub className='text-xl mr-2' /> Login With Github
           </button>
         </div>

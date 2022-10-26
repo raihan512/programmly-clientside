@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa";
+import React, { useContext, useState } from "react";
+import { FaMoon, FaSun, FaUser } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../../../Assets/Brand/Programmly.png";
+import { AuthProvider } from "../../../Contexts/AuthContext/AuthContext";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthProvider);
   const [darkMode, setDarkMode] = useState(true);
   const darkModeStyle = "bg-black text White";
   const lightModeStayle = "bg-white text-black";
@@ -48,19 +50,41 @@ const Header = () => {
         </NavLink>
       </div>
       {/* Authentication & Toggle DarkMode */}
-      <div className=' flex'>
-        <Link
-          to='login'
-          className='mr-2 md:ml-4 text-xl font-semibold uppercase'
-        >
-          Login
-        </Link>
-        <Link
-          to='register'
-          className='mr-2 md:ml-4 text-xl font-semibold uppercase'
-        >
-          Register
-        </Link>
+      <div className=' flex items-center'>
+        {user ? (
+          <>
+            {user.photoURL ? (
+              <img
+                className='h-8 rounded-full'
+                src={user.photoURL}
+                alt='User'
+                title={user.displayName ? user.displayName : "User"}
+              />
+            ) : (
+              <FaUser />
+            )}
+            <button className='ml-5' onClick={logOut}>
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            {" "}
+            <Link
+              to='login'
+              className='mr-2 md:ml-4 text-xl font-semibold uppercase'
+            >
+              Login
+            </Link>
+            <Link
+              to='register'
+              className='mr-2 md:ml-4 text-xl font-semibold uppercase'
+            >
+              Register
+            </Link>
+          </>
+        )}
+
         <button
           className='text-lg ml-5 text-yellow-400'
           onClick={() => setDarkMode((current) => !current)}
