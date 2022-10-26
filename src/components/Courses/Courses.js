@@ -1,6 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
-import Banner from "../../Assets/images/courses-page-banner.webp";
+import { Link, useLoaderData } from "react-router-dom";
 import Course from "../Course/Course";
 
 const Courses = () => {
@@ -18,20 +17,24 @@ const Courses = () => {
         </p>
       </div>
       {/* Grid And Courses Container */}
-      <div className='grid grid-cols-5 m-5 md:m-10'>
-        {/* List Container */}
-        <div className='col-span-1'>
-          <ul>
-            <li>One</li>
-            <li>One</li>
-            <li>One</li>
-            <li>One</li>
-            <li>One</li>
-          </ul>
+      <div className='md:grid grid-cols-6 m-5 md:m-10'>
+        {/* Left Nav Container */}
+        <div className='col-span-2'>
+          <h2 className="text-xl font-bold my-5">We have total {courses.length} Course</h2>
+          {
+            courses.map((course) => (
+              <p
+                className="text-lg font-semibold mb-3"
+                key={course.id}
+              >
+                <Link to={`/course/${course.id}`}>{course.title}</Link>
+              </p>
+            ))
+          }
         </div>
         {/* Courses Container */}
         <div className='col-span-4'>
-          <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-3 m-5'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
             {courses.map((course) => (
               <Course key={course.id} course={course}></Course>
             ))}
