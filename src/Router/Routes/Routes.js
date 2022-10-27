@@ -8,7 +8,6 @@ import CourseDetails from "../../components/CourseDetails/CourseDetails";
 import Courses from "../../components/Courses/Courses";
 import FAQ from "../../components/FAQ/FAQ";
 import Home from "../../components/Home/Home";
-import PDF from "../../components/PDF/PDF";
 import Main from "../../layouts/Main/Main";
 import { PrivateRouter } from "../PrivateRouter/PrivateRouter";
 
@@ -45,12 +44,12 @@ export const Routes = createBrowserRouter([
         element: <Blog></Blog>,
       },
       {
-        path: "/login",
-        element: <Login></Login>,
+        path: "/checkout",
+        element: <Checkout></Checkout>
       },
       {
-        path: '/pdf',
-        element: <PDF></PDF>
+        path: "/login",
+        element: <Login></Login>,
       },
       {
         path: "/register",
