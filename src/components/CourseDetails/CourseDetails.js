@@ -4,7 +4,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 
 const CourseDetails = () => {
     const courseDetails = useLoaderData();
-    const { desc, title, thumbnail, level, rating, duration, fee, istructor, enrolled } = courseDetails;
+    const { id, desc, title, thumbnail, level, rating, duration, fee, istructor, enrolled } = courseDetails;
     return (
         <div className='bg-gray-500 py-5 px-12 md:px-40'>
             {/* Course Title */}
@@ -32,8 +32,12 @@ const CourseDetails = () => {
             <p className='text-lg text-white mt-5'>
                 Description: {desc}
             </p>
-            <button className='py-2 px-5 bg-green-800 text-white rounded-sm font-bold text-right'><Link to='/checkout' className='flex items-center'> Get Premium Access <FaCrown className='text-yellow-300 text-2xl ml-3' /></Link></button>
-        </div>
+            <button className='py-2 px-5 bg-green-800 text-white rounded-sm font-bold text-right'>
+                <Link to={`/checkout/${id}`} className='flex items-center'>
+                    Get Premium Access
+                    <FaCrown className='text-yellow-300 text-2xl ml-3' />
+                </Link></button>
+        </div >
     );
 };
 

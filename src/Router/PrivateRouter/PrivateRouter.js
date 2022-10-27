@@ -6,8 +6,9 @@ export const PrivateRouter = ({ children }) => {
     const location = useLocation();
 
     const { user, loading } = useContext(AuthProvider);
+
     if (loading) {
-        <div><p>Loading...</p></div>
+        return <div><p>Loading...</p></div>
     }
     if (user) {
         return children;
