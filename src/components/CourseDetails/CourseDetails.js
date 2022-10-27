@@ -1,14 +1,22 @@
 import React from 'react';
 import { FaCrown, FaFilePdf, FaStar } from 'react-icons/fa';
 import { Link, useLoaderData } from 'react-router-dom';
+import Pdf from "react-to-pdf";
+
 
 const CourseDetails = () => {
     const courseDetails = useLoaderData();
     const { id, desc, title, thumbnail, level, rating, duration, fee, istructor, enrolled } = courseDetails;
+    const ref = React.createRef();
+
     return (
-        <div className='bg-gray-500 py-5 px-12 md:px-40'>
+        <div ref={ref} className='bg-gray-500 py-5 px-12 md:px-40'>
             {/* Course Title */}
-            <h3 className='text-xl md:text-2xl lg:text-4xl font-bold text-white flex justify-between'>{title} <FaFilePdf className='cursor-pointer' /></h3>
+            <h3 className='text-xl md:text-2xl lg:text-4xl font-bold text-white flex justify-between'>{title}
+                <Pdf targetRef={ref} filename="code-example.pdf">
+                    {({ toPdf }) => <button onClick={toPdf} className='text-2xl'><FaFilePdf /></button>}
+                </Pdf>
+            </h3>
             <img src={thumbnail} alt="" className='mt-2 mb-5 rounded-md' />
             {/* Instructor Details */}
             <div className="flex items-center my-5">
