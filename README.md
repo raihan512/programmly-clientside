@@ -1,5 +1,7 @@
 Web Site Name: Programmly
-Live: Link
+Client-Side-Link: https://github.com/programming-hero-web-course1/b610-learning-platform-client-side-raihan512
+Server-Side-Link: https://github.com/programming-hero-web-course1/b610-lerning-platform-server-side-raihan512
+Live-Link: https://programmly-18506.web.app/
 
 Features
 -User can see courses at home page
