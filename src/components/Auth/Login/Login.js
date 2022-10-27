@@ -7,7 +7,7 @@ import { AuthProvider } from "../../../Contexts/AuthContext/AuthContext";
 
 const Login = () => {
   const { login, loginWithGoogle, loginWithGithub } = useContext(AuthProvider);
-  const [loginError, setLoginError] = useState('')
+  const [loginError, setLoginError] = useState("");
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
@@ -22,16 +22,16 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate(from, { replace: true });
       })
       .catch((error) => setLoginError(error.message));
   };
-  navigate(from, { replace: true });
-
 
   const googleLogin = () => {
     loginWithGoogle()
       .then((result) => {
         console.log("User From Google", result.user);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         setLoginError(error.message);
@@ -42,6 +42,7 @@ const Login = () => {
     loginWithGithub()
       .then((result) => {
         console.log("User From Github", result.user);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         setLoginError(error.message);

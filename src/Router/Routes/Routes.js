@@ -6,6 +6,7 @@ import Blog from "../../components/Blog/Blog";
 import Checkout from "../../components/Checkout/Checkout";
 import CourseDetails from "../../components/CourseDetails/CourseDetails";
 import Courses from "../../components/Courses/Courses";
+import Error from "../../components/Error/Error";
 import FAQ from "../../components/FAQ/FAQ";
 import Home from "../../components/Home/Home";
 import Main from "../../layouts/Main/Main";
@@ -23,17 +24,23 @@ export const Routes = createBrowserRouter([
       {
         path: "/courses",
         element: <Courses></Courses>,
-        loader: () => fetch('http://localhost:5000/courses')
+        loader: () => fetch("http://localhost:5000/courses"),
       },
       {
-        path: '/course/:id',
+        path: "/course/:id",
         element: <CourseDetails></CourseDetails>,
-        loader: ({ params }) => fetch(`http://localhost:5000/course/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/course/${params.id}`),
       },
       {
-        path: '/checkout/:id',
-        element: <PrivateRouter><Checkout></Checkout></PrivateRouter>,
-        loader: ({ params }) => fetch(`http://localhost:5000/course/${params.id}`)
+        path: "/checkout/:id",
+        element: (
+          <PrivateRouter>
+            <Checkout></Checkout>
+          </PrivateRouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/course/${params.id}`),
       },
       {
         path: "/faq",
@@ -45,7 +52,7 @@ export const Routes = createBrowserRouter([
       },
       {
         path: "/checkout",
-        element: <Checkout></Checkout>
+        element: <Checkout></Checkout>,
       },
       {
         path: "/login",
@@ -54,6 +61,10 @@ export const Routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "*",
+        element: <Error></Error>,
       },
     ],
   },
